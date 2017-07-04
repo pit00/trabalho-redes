@@ -91,11 +91,11 @@ int main(int argc , char *argv[]) {
             printf("Entre com o voto : ");
         } else if(!votacao_iniciada) {
             printf(" (0) Inicia votação\n"); 
-            printf(" (666) Encerrar votação\n");
+            printf(" (888) Encerrar votação\n");
             printf("Escolha : ");
         } else {
             printf(" (999) Carrega lista de candidatos\n");
-            printf(" (666) Encerrar votação\n"); 
+            printf(" (888) Encerrar votação\n"); 
             printf("Escolha : ");
         }
 
@@ -115,7 +115,7 @@ int main(int argc , char *argv[]) {
             return 1;   // encerra programa
         }
         // se pediu pra encerrar
-        if(voto == 666) {
+        if(voto == 888) {
             printf("A votação foi encerrada!\n");
 
             // recebe mensagem de codigo
@@ -137,7 +137,7 @@ int main(int argc , char *argv[]) {
             printf("   Eleiçao para melhor docente de 2017\n");
             printf("-------------------------------------------\n");
             // o primeiro dado enviado pelo servidor sera o numero de candidatos
-            for(i=0; i<7    ; i++) {       // sinal que acabou de receber os carregados
+            for(i=0; i<7; i++) {       // sinal que acabou de receber os carregados
 
                 //Recebe numero de candidato
                 if(recv(socket_cliente, resposta_server, TAMANHO_MSG, 0) < 0) {
@@ -219,7 +219,7 @@ int main(int argc , char *argv[]) {
                     
                 }
 
-                printf(" (666) Encerrar votação\n");
+                printf(" (888) Encerrar votação\n");
 
 
                 printf("-------------------------------------------\n"); 
