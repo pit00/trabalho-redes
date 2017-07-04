@@ -45,7 +45,7 @@ public class Cliente extends Thread {
             System.out.println("Cliente Fechado");
             
             try{ 
-               Thread.sleep(1000);
+               Thread.sleep(500);
             } catch(Exception e) {}
             
         } catch(Exception e){
