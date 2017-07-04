@@ -84,7 +84,7 @@ int main(int argc , char *argv[]) {
             // parte que envia para quem quer votar
             printf("Entre com o voto : ");
         } else if(!votacao_iniciada) {
-            printf(" (0) Inicia votação\n"); 
+            printf(" (1) Inicia votação\n"); 
             printf(" (888) Encerrar votação\n");
             printf("Escolha : ");
         } else {
