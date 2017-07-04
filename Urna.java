@@ -8,6 +8,7 @@ public class Urna extends JFrame implements ActionListener  {
 
     ListaCandidatos lc = new ListaCandidatos();
     JButton votar, branco, nulo, carregar, finalizar;
+    int votos_iniciais = 0;
     
     Urna () {
         super("Projeto de redes - Urna eletronica");
@@ -63,6 +64,8 @@ public class Urna extends JFrame implements ActionListener  {
                 branco.setEnabled(true);
                 nulo.setEnabled(true);
                 carregar.setEnabled(false);
+                
+                votos_iniciais = lc.num_votos;
             }
         }
         
@@ -82,7 +85,7 @@ public class Urna extends JFrame implements ActionListener  {
         
         if (ae.getSource() == finalizar) {
             //enviar dados
-            if(lc.num_votos > 0) {
+            if(lc.num_votos > votos_iniciais) {
             
                 Cliente c = new Cliente(lc, 888, 40010);
                 c.start();
