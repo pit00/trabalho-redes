@@ -1,9 +1,9 @@
 // CLIENTE EM C PARA O TRABALHO DAS URNAS DE REDES
 // GRUPO 10
-// Lucas Vieira Costa Nicolau 8517101
-// Danilo de Moraes Costa 8921972
-// Andréia de Barros Carpi 9292816
-
+// LUCAS VIEIRA COSTA NICOLAU       8517101
+// ANDREIA
+// DANILO
+//http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <string.h>
@@ -72,6 +72,13 @@ int main(int argc , char *argv[]) {
     printf("-------------------------------------------\n"); 
     printf("         MENU INCIAL DE VOTAÇÃO\n");
     printf("-------------------------------------------\n");
+   
+
+    if(votacao_iniciada && candidatos_carregados) {
+	    printf(" (1) Branco\n");
+	    printf(" (2) Nulo\n");  
+    }
+
 	
     // Mantem comunicação com o server
     for(i=0; ;i++) {
@@ -83,12 +90,12 @@ int main(int argc , char *argv[]) {
 			// parte que envia para quem quer votar
 		    printf("Entre com o voto : ");
 		} else if(!votacao_iniciada) {
-			printf(" (1) Inicia votação\n"); 
-			printf(" (888) Encerrar votação\n");
+			printf(" (0) Inicia votação\n"); 
+			printf(" (666) Encerrar votação\n");
 			printf("Escolha : ");
 		} else {
 		    printf(" (999) Carrega lista de candidatos\n");
-			printf(" (888) Encerrar votação\n"); 
+			printf(" (666) Encerrar votação\n"); 
     		printf("Escolha : ");
 		}
 
@@ -108,7 +115,7 @@ int main(int argc , char *argv[]) {
             return 1;	// encerra programa
         }
         // se pediu pra encerrar
-        if(voto == 888) {
+        if(voto == 666) {
         	printf("A votação foi encerrada!\n");
 
             // recebe mensagem de codigo
@@ -199,27 +206,20 @@ int main(int argc , char *argv[]) {
     			// o primeiro dado enviado pelo servidor sera o numero de candidatos
     			for(i=0; i<7; i++) {		// sinal que acabou de receber os carregados
                     
-                    // recebe o codigo dele
                     if(recv(socket_cliente, resposta_server, TAMANHO_MSG, 0) < 0) {
                         puts("recv failed");
                         break;
                     }
-			        //Recebe resposta do candidato
+			        //Recebe resposta do servidor
 			        if(recv(socket_cliente, resposta_server2, TAMANHO_MSG, 0) < 0) {
 			            puts("recv failed");
 			            break;
 			        }
-
-                     //Recebe o nome do partido
-                    if(recv(socket_cliente, resposta_server3, TAMANHO_MSG, 0) < 0) {
-                        puts("recv failed");
-                        break;
-                    }
-                    printf(" %d - %s (%s)\n", atoi(resposta_server), resposta_server2, resposta_server3);
+                    printf(" (%d) %s\n", atoi(resposta_server), resposta_server2);
 		        	
 		    	}
 
-		    	printf(" (888) Encerrar votação\n");
+		    	printf(" (666) Encerrar votação\n");
 
 
 			    printf("-------------------------------------------\n"); 
