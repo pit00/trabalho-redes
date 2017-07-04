@@ -32,9 +32,11 @@ public class Servidor extends Thread{
                 lc = (ListaCandidatos) RECEBE_OBJETO.readObject();
                 ENVIA_OBJETO.writeObject("votos salvos");
                 
+                //printa o resultado da votação
                 for(Candidato c : lc.candidatos){
-                    System.out.println(c.nome_candidato + " - " + c.num_votos + "votos");
+                    System.out.println(c.nome_candidato + " - " + c.num_votos + " votos");
                 }
+                System.out.println();
             }
             
             System.out.println("Fechando thread");

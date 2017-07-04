@@ -30,21 +30,27 @@ public class AtendeRequisicoes {
 	lc.candidatos.add(new Candidato(17, "Jonas de Carvalho", "EESC"));
 	lc.candidatos.add(new Candidato(18, "Hélio Navarro", "EESC"));
         
-        int count = 0;
-        
         try {
+            
+            System.out.println("Criando Servidor TCP ");
+            ServerSocket WAIT = new ServerSocket(port);
+            
             while(true) {
-                System.out.println("Criando Servidor TCP ");
-
-                ServerSocket WAIT = new ServerSocket(port);
                 Socket SERVIDOR_SOCKET = WAIT.accept();
                 
                 Servidor s = new Servidor(lc, SERVIDOR_SOCKET);
                 s.start();
                 
+                try{ 
+                   Thread.sleep(500);
+                } catch(Exception e) {}
+                
+                lc = s.lc;
+                System.out.println("Numero de votos (mais brancos e nulos): "+lc.num_votos);
+                System.out.println();
             }
         } catch(Exception e) {
-            System.out.println("Erro nas requisições");
+            System.out.println("Erro nas requisições - " + e.getMessage());
         }
     }
     

@@ -58,7 +58,7 @@ public class Urna extends JFrame implements ActionListener  {
             Cliente c = new Cliente(lc, 999, 40010);
             c.start();
             try{ 
-               Thread.sleep(1000);
+               Thread.sleep(500);
             } catch(Exception e) {}
             lc = c.lc;
         }
