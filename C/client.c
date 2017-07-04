@@ -72,12 +72,6 @@ int main(int argc , char *argv[]) {
     printf("-------------------------------------------\n"); 
     printf("         MENU INCIAL DE VOTAÇÃO\n");
     printf("-------------------------------------------\n");
-   
-
-    if(votacao_iniciada && candidatos_carregados) {
-        printf(" (1) Branco\n");
-        printf(" (2) Nulo\n");  
-    }
 
     
     // Mantem comunicação com o server
