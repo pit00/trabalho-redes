@@ -50,10 +50,6 @@ public class Urna extends JFrame implements ActionListener  {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == carregar) {
-            votar.setEnabled(true);
-            branco.setEnabled(true);
-            nulo.setEnabled(true);
-            carregar.setEnabled(false);
             //carrega candidatos
             Cliente c = new Cliente(lc, 999, 40010);
             c.start();
@@ -61,6 +57,13 @@ public class Urna extends JFrame implements ActionListener  {
                Thread.sleep(500);
             } catch(Exception e) {}
             lc = c.lc;
+            
+            if(lc.candidatos.size() > 0) {
+                votar.setEnabled(true);
+                branco.setEnabled(true);
+                nulo.setEnabled(true);
+                carregar.setEnabled(false);
+            }
         }
         
         if (ae.getSource() == votar) {
@@ -79,12 +82,16 @@ public class Urna extends JFrame implements ActionListener  {
         
         if (ae.getSource() == finalizar) {
             //enviar dados
-            Cliente c = new Cliente(lc, 888, 40010);
-            c.start();
+            if(lc.num_votos > 0) {
             
-            try{ 
-               Thread.sleep(1100);
-            } catch(Exception e) {}
+                Cliente c = new Cliente(lc, 888, 40010);
+                c.start();
+
+                try{ 
+                   Thread.sleep(1100);
+                } catch(Exception e) {}
+            }
+            
             System.exit(0);
         }
     }
