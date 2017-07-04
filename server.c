@@ -181,9 +181,9 @@ int main(int argc , char *argv[]) {
 
 			    	// arruma voto fora do intervalo para em branco
 			    	if(voto < 0) {
-			    		ficha[1].num_votos++;
-			    	} else if(voto > 7) {
-				    	ficha[1].num_votos++;
+			    		ficha[0].num_votos++;
+			    	} else if(voto > 6) {
+				    	ficha[0].num_votos++;
 			    	} else {
 			    		ficha[voto].num_votos++;
 			    	}
