@@ -1,8 +1,9 @@
 // CLIENTE EM C PARA O TRABALHO DAS URNAS DE REDES
 // GRUPO 10
-// LUCAS VIEIRA COSTA NICOLAU       8517101
-// ANDREIA
-// DANILO
+// Lucas Vieira Costa Nicolau 8517101
+// Danilo de Moraes Costa 8921972
+// Andréia de Barros Carpi 9292816
+
 //http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
 #include <stdio.h> 
 #include <stdlib.h> 
@@ -24,7 +25,7 @@ int main(int argc , char *argv[]) {
     int voto;
     int i;
 	int porta;
-    char *endereco; 	// 15 do endereco(maior tamanho) + \n
+    char *endereco; 	
 
     int votacao_iniciada = 0;
     int candidatos_carregados = 0;
