@@ -1,4 +1,4 @@
-package projetoredes;
+package client;
 
 import java.awt.event.*;
 import java.util.*;
@@ -88,11 +88,13 @@ public class Votar extends JFrame implements MouseListener, ActionListener, KeyL
         setVisible(true);
         
         for(int i=0; i<lc.candidatos.size(); i++) {
-            txt1.setText(""+lc.candidatos.get(i).codigo_votacao);
-            txt2.setText(lc.candidatos.get(i).nome_candidato);
-            txt3.setText(lc.candidatos.get(i).partido);
-            String[] linha = new String[]{txt1.getText(), txt2.getText(), txt3.getText()};
-            modelo.addRow(linha);	
+            if(i > 1){
+                txt1.setText(""+lc.candidatos.get(i).codigo_votacao);
+                txt2.setText(lc.candidatos.get(i).nome_candidato);
+                txt3.setText(lc.candidatos.get(i).partido);
+                String[] linha = new String[]{txt1.getText(), txt2.getText(), txt3.getText()};
+                modelo.addRow(linha);	
+            }
 	}
 
     }
@@ -105,7 +107,7 @@ public class Votar extends JFrame implements MouseListener, ActionListener, KeyL
         }  
         if(ae.getSource()==btvotar){
             int linha = tabela.getSelectedRow();
-            Candidato c = lc.candidatos.get(linha);
+            Candidato c = lc.candidatos.get(linha + 2);
             c.num_votos++;
             lc.num_votos++;
             dispose();

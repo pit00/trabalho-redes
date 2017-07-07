@@ -1,14 +1,17 @@
-package projetoredes;
+package client;
 
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
 public class Urna extends JFrame implements ActionListener  {
-
+    private static int porta = 40010;
+    private String endereco = "localhost";//"cosmos.lasdpc.icmc.usp.br";
+    
     ListaCandidatos lc = new ListaCandidatos();
     JButton votar, branco, nulo, carregar, finalizar;
     int votos_iniciais = 0;
+    Cliente c = new Cliente(lc, porta, endereco);
     
     Urna () {
         super("Projeto de redes - Urna eletronica");
@@ -52,8 +55,8 @@ public class Urna extends JFrame implements ActionListener  {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == carregar) {
             //carrega candidatos
-            Cliente c = new Cliente(lc, 999, 40010);
-            c.start();
+            c.Conecta();
+            c.PegaDados();
             try{ 
                Thread.sleep(500);
             } catch(Exception e) {}
@@ -76,23 +79,23 @@ public class Urna extends JFrame implements ActionListener  {
         }
         
         if (ae.getSource() == branco) {
+            lc.candidatos.get(0).num_votos++;
             lc.num_votos++;
         }
         
         if (ae.getSource() == nulo) {
+            lc.candidatos.get(1).num_votos++;
             lc.num_votos++;
         }
         
         if (ae.getSource() == finalizar) {
             //enviar dados
             if(lc.num_votos > votos_iniciais) {
-            
-                Cliente c = new Cliente(lc, 888, 40010);
-                c.start();
-
+                c.EnviaDados();
                 try{ 
-                   Thread.sleep(1100);
+                   Thread.sleep(2000);
                 } catch(Exception e) {}
+                c.Desconecta();
             }
             
             System.exit(0);

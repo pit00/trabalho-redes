@@ -1,14 +1,13 @@
-package projetoredes;
+package client;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ListaCandidatos implements Serializable{
+public class ListaCandidatos {
     ArrayList<Candidato> candidatos;
     int num_votos;
     
     ListaCandidatos() {
-        candidatos = new ArrayList<Candidato>();
+        candidatos = new ArrayList<>();
         num_votos = 0;
     }
 }

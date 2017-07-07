@@ -1,16 +1,18 @@
-package projetoredes;
+package server;
+
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 public class Servidor extends Thread{
   
     ListaCandidatos lc;
     Socket SERVIDOR_SOCKET;
+    AtendeRequisicoes atr;
     
-    public Servidor (ListaCandidatos lista, Socket s) {
+    public Servidor (ListaCandidatos lista, Socket s, AtendeRequisicoes ar) {
         lc = lista;
         SERVIDOR_SOCKET = s;
+        atr = ar;
     }
     
     @Override
@@ -18,22 +20,39 @@ public class Servidor extends Thread{
         try {
             System.out.println("Criando nova thread");
             
-            ObjectInputStream RECEBE_OBJETO = new ObjectInputStream(SERVIDOR_SOCKET.getInputStream());
-            ObjectOutputStream ENVIA_OBJETO = new ObjectOutputStream(SERVIDOR_SOCKET.getOutputStream());
-            //PrintWriter ENVIA = new PrintWriter(new OutputStreamWriter(SERVIDOR_SOCKET.getOutputStream()));
+            BufferedReader RECEBE = new BufferedReader(new InputStreamReader(SERVIDOR_SOCKET.getInputStream(), "UTF-8"));
+            PrintWriter ENVIA = new PrintWriter(new OutputStreamWriter(SERVIDOR_SOCKET.getOutputStream())); //para escrever string somente
             
-            int code = (int) RECEBE_OBJETO.readObject();
+            int code =  Integer.parseInt(RECEBE.readLine());
             
             if (code == 999){
-                ENVIA_OBJETO.writeObject(lc);
-                System.out.println((String) RECEBE_OBJETO.readObject());
+                System.out.println("enviando dados");
+                ENVIA.println(""+lc.candidatos.size());
+                ENVIA.flush();
+                
+                for(Candidato c : lc.candidatos) {
+                    ENVIA.println(""+c.codigo_votacao); ENVIA.flush();
+                    ENVIA.println(c.nome_candidato); ENVIA.flush();
+                    ENVIA.println(c.partido); ENVIA.flush();
+                    ENVIA.println(""+c.num_votos); ENVIA.flush();
+                }
+                
+                System.out.println("dados enviados");
+                //ENVIA_OBJETO.writeObject(lc);
+                //System.out.println((String) RECEBE_OBJETO.readObject());
             }
+            
+            code =  Integer.parseInt(RECEBE.readLine());
+            
             if (code == 888){
-                lc = (ListaCandidatos) RECEBE_OBJETO.readObject();
-                ENVIA_OBJETO.writeObject("votos salvos");
+                //lc = (ListaCandidatos) RECEBE_OBJETO.readObject();
+                //ENVIA_OBJETO.writeObject("votos salvos");
+                
+                lc.num_votos = Integer.parseInt(RECEBE.readLine());
                 
                 //printa o resultado da votação
                 for(Candidato c : lc.candidatos){
+                    c.num_votos = Integer.parseInt(RECEBE.readLine());
                     System.out.println(c.nome_candidato + " - " + c.num_votos + " votos");
                 }
                 System.out.println();
@@ -41,10 +60,11 @@ public class Servidor extends Thread{
             
             System.out.println("Fechando thread");
             
-            RECEBE_OBJETO.close();
-            ENVIA_OBJETO.close();
+            RECEBE.close();
+            ENVIA.close();
             SERVIDOR_SOCKET.close();
-
+            
+            atr.lc = lc;
             System.out.println("thread Fechada");
             
         } catch(Exception e){
