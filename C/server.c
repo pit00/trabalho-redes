@@ -26,7 +26,7 @@ struct urna {
 
 void imprime_ficha(struct urna ficha) {
 	printf("---------------------------------------\n");
-
+			    	
 	printf("código: %d\n", ficha.cod_votacao);
 	printf("candidato: %s", ficha.nome_candidato);
 	printf("partido: %s", ficha.partido);
@@ -86,6 +86,7 @@ int main(int argc , char *argv[]) {
     // usado para converter cod do candidato/num votos para string e enviar pelo socket
     char str[TAMANHO_MSG];	
 	char str2[TAMANHO_MSG];
+		 				
 
     int votacao_iniciada = 0;		// boolean que representa se a votação foi iniciada
     int candidatos_carregados = 0;		// boolean que representa se a votação foi iniciada
@@ -96,9 +97,10 @@ int main(int argc , char *argv[]) {
         printf("Não foi possivel criar o socket\n");
     }
     printf("Socket foi criado!\n");
+     
 
 
-    // Avisa se vai usar a porta default ou a passada para o projeto
+     // Avisa se vai usar a porta default ou a passada para o projeto
 	if (argc != 2) {
 		fprintf(stderr, "Usando porta(%d) default para o projeto\n", PORTA_DEFAULT);
 	} else {
@@ -116,7 +118,7 @@ int main(int argc , char *argv[]) {
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
     server.sin_port = htons(porta);
-
+     
     //Bind
     if(bind(socket_servidor,(struct sockaddr *)&server , sizeof(server)) < 0) {
         //print the error message
@@ -124,7 +126,7 @@ int main(int argc , char *argv[]) {
         return 1;
     }
     printf("bind feita!\n");
-
+     
     //Listen
     listen(socket_servidor , 3);
     
@@ -143,7 +145,7 @@ int main(int argc , char *argv[]) {
     printf("Esperando por conexões do cliente...\n");
 
     c = sizeof(struct sockaddr_in);
-	
+	  
     while(1) {     
 	    //aceita conexao do cliente
 	    socket_cliente = accept(socket_servidor, (struct sockaddr *)&cliente, (socklen_t*)&c);
@@ -201,7 +203,7 @@ int main(int argc , char *argv[]) {
 			 				if(send(socket_cliente, str2, strlen(str2), 0) < 0) return 1;	
 	        			}
 			 	}
- 
+				  
 	 	} 
 
     	if(read_size == 0) {
