@@ -1,4 +1,4 @@
-package client;
+package server;
 
 public class Candidato {
     int codigo_votacao;

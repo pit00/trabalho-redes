@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Urna extends JFrame implements ActionListener  {
     private static int porta = 40010;
-    private String endereco = "localhost";//"cosmos.lasdpc.icmc.usp.br";
+    private String endereco = "cosmos.lasdpc.icmc.usp.br";
     
     ListaCandidatos lc = new ListaCandidatos();
     JButton votar, branco, nulo, carregar, finalizar;
